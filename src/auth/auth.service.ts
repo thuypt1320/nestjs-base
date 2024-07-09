@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { AuthLoginDto } from 'src/auth/auth.dto';
 import { JwtService } from '@nestjs/jwt';
 
@@ -14,5 +18,10 @@ export class AuthService {
       };
 
     throw new UnauthorizedException();
+  }
+
+  async verify(payload) {
+    if (payload.token !== '--') throw new BadRequestException();
+    return 'success';
   }
 }
